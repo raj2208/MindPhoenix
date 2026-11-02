@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Container, PageHero } from "@/components/site/section";
+import { PageHero, Section } from "@/components/site/section";
 import { PostCard } from "@/components/site/cards";
 import { posts } from "@/data/posts";
 
@@ -16,13 +16,11 @@ export default function BlogPage() {
         description="Stories, milestones and updates from our projects across India."
         crumbs={[{ label: "News & Events" }]}
       />
-      <section className="py-20 sm:py-28">
-        <Container className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((p) => (
-            <PostCard key={p.slug} post={p} />
-          ))}
-        </Container>
-      </section>
+      <Section containerClassName="grid gap-5 sm:gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((p) => (
+          <PostCard key={p.slug} post={p} />
+        ))}
+      </Section>
     </>
   );
 }

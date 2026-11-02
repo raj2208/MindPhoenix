@@ -19,7 +19,7 @@ export async function submitApplication(
   const n = prev.n + 1;
 
   if (text(formData, "website")) {
-    return { status: "success", message: "Thank you! Your application has been received.", n };
+    return { status: "success", message: "Your application has been received.", n };
   }
 
   const values = {
@@ -77,7 +77,7 @@ export async function submitApplication(
 
   return {
     status: "success",
-    message: "Thank you! Your application has been received. We'll review it and get back to you.",
+    message: "Your application has been received. We'll review it and get back to you.",
     n,
   };
 }

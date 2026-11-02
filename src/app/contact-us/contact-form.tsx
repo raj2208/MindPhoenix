@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  Field,
+  FormField,
   FormStatus,
   Honeypot,
   SubmitButton,
@@ -26,11 +26,11 @@ export function ContactForm() {
       key={state.n}
       action={action}
       noValidate
-      className="relative space-y-5"
+      className="relative flex flex-col gap-5"
     >
       <FormStatus state={state} />
       <Honeypot />
-      <Field id="name" label="Name" required error={e?.name}>
+      <FormField id="name" label="Name" required error={e?.name}>
         <Input
           id="name"
           name="name"
@@ -40,9 +40,9 @@ export function ContactForm() {
           aria-describedby={e?.name ? "name-error" : undefined}
           className={inputClass}
         />
-      </Field>
+      </FormField>
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="email" label="Email" required error={e?.email}>
+        <FormField id="email" label="Email" required error={e?.email}>
           <Input
             id="email"
             name="email"
@@ -53,8 +53,8 @@ export function ContactForm() {
             aria-describedby={e?.email ? "email-error" : undefined}
             className={inputClass}
           />
-        </Field>
-        <Field id="phone" label="Phone" error={e?.phone}>
+        </FormField>
+        <FormField id="phone" label="Phone" error={e?.phone}>
           <Input
             id="phone"
             name="phone"
@@ -65,9 +65,9 @@ export function ContactForm() {
             aria-describedby={e?.phone ? "phone-error" : undefined}
             className={inputClass}
           />
-        </Field>
+        </FormField>
       </div>
-      <Field id="message" label="Message" required error={e?.message}>
+      <FormField id="message" label="Message" required error={e?.message}>
         <Textarea
           id="message"
           name="message"
@@ -77,7 +77,7 @@ export function ContactForm() {
           aria-describedby={e?.message ? "message-error" : undefined}
           className="rounded-xl bg-white px-4 py-3 text-base"
         />
-      </Field>
+      </FormField>
       <SubmitButton pending={pending}>Send message</SubmitButton>
     </form>
   );

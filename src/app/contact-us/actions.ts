@@ -12,7 +12,7 @@ export async function submitEnquiry(
 
   // Honeypot: real visitors never see or fill this field.
   if (text(formData, "website")) {
-    return { status: "success", message: "Thank you! We'll be in touch soon.", n };
+    return { status: "success", message: "We'll be in touch soon.", n };
   }
 
   const values = {
@@ -53,7 +53,7 @@ export async function submitEnquiry(
 
   return {
     status: "success",
-    message: "Thank you! Your message has been received and we'll be in touch soon.",
+    message: "Your message has been received and we'll be in touch soon.",
     n,
   };
 }

@@ -1,35 +1,42 @@
 import type { ReactNode } from "react";
-import { CheckCircle2 } from "lucide-react";
-import { Label } from "@/components/ui/label";
+import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Spinner } from "@/components/ui/spinner";
 import type { FormState } from "@/lib/form";
 
-export function Field({
+export function FormField({
   id,
   label,
   error,
   required,
+  hint,
   children,
 }: {
   id: string;
   label: string;
   error?: string;
   required?: boolean;
+  hint?: string;
   children: ReactNode;
 }) {
   return (
-    <div className="space-y-2">
-      <Label htmlFor={id} className="text-sm font-semibold text-ink">
+    <Field data-invalid={error ? true : undefined} className="gap-2">
+      <FieldLabel htmlFor={id} className="text-sm font-semibold text-ink">
         {label}
-        {required && <span className="text-brand"> *</span>}
-      </Label>
+        {required && (
+          <span className="text-brand" aria-hidden>
+            *
+          </span>
+        )}
+        {hint && (
+          <span className="font-normal text-muted-foreground">{hint}</span>
+        )}
+      </FieldLabel>
       {children}
-      {error && (
-        <p id={`${id}-error`} role="alert" className="text-sm text-destructive">
-          {error}
-        </p>
-      )}
-    </div>
+      {error && <FieldError id={`${id}-error`}>{error}</FieldError>}
+    </Field>
   );
 }
 
@@ -58,6 +65,7 @@ export function SubmitButton({
       disabled={pending}
       className="h-12 w-full rounded-full bg-brand px-8 text-base font-semibold text-white shadow-lg shadow-brand/25 hover:bg-brand-dark sm:w-auto"
     >
+      {pending && <Spinner />}
       {pending ? "Sending…" : children}
     </Button>
   );
@@ -66,26 +74,28 @@ export function SubmitButton({
 export function FormStatus({ state }: { state: FormState }) {
   if (state.status === "success") {
     return (
-      <div
+      <Alert
         role="status"
-        className="flex items-start gap-3 rounded-2xl bg-green-50 p-5 text-green-900 ring-1 ring-green-200"
+        className="rounded-2xl border-green-200 bg-green-50 text-green-900 *:[svg]:text-green-600"
       >
-        <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-green-600" />
-        <p className="font-medium">{state.message}</p>
-      </div>
+        <CheckCircle2 />
+        <AlertTitle>Thank you!</AlertTitle>
+        <AlertDescription className="text-green-800">
+          {state.message}
+        </AlertDescription>
+      </Alert>
     );
   }
   if (state.status === "error" && state.message) {
     return (
-      <div
-        role="alert"
-        className="rounded-2xl bg-red-50 p-5 font-medium text-red-900 ring-1 ring-red-200"
-      >
-        {state.message}
-      </div>
+      <Alert variant="destructive" className="rounded-2xl">
+        <AlertCircle />
+        <AlertTitle>Couldn&apos;t send</AlertTitle>
+        <AlertDescription>{state.message}</AlertDescription>
+      </Alert>
     );
   }
   return null;
 }
 
-export const inputClass = "h-12 rounded-xl bg-white px-4 text-base";
+export const inputClass = "h-12 rounded-xl bg-white px-4 text-base md:text-base";

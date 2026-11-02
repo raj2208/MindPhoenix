@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Calendar } from "lucide-react";
-import { Container, PageHero } from "@/components/site/section";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Container, PageHero, Section } from "@/components/site/section";
 import { PostCard } from "@/components/site/cards";
 import { formatDate } from "@/lib/format";
 import { posts } from "@/data/posts";
@@ -31,14 +33,15 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
     <>
       <PageHero
         title={post.title}
+        compact
         crumbs={[{ label: "News & Events", href: "/blog" }, { label: "Post" }]}
       />
-      <article className="py-16 sm:py-24">
+      <article className="py-12 sm:py-20">
         <Container className="max-w-3xl">
-          <p className="flex items-center gap-2 text-sm font-semibold text-brand">
-            <Calendar className="size-4" />
+          <Badge className="h-7 gap-1.5 bg-accent px-3 text-accent-foreground">
+            <Calendar />
             {formatDate(post.date)}
-          </p>
+          </Badge>
           <Image
             src={post.image}
             alt=""
@@ -47,7 +50,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
             priority
             className="mt-6 aspect-[2/1] w-full rounded-3xl object-cover shadow-xl"
           />
-          <div className="mt-10 space-y-6 text-lg leading-relaxed text-ink/85">
+          <div className="mt-10 space-y-6 text-base leading-relaxed text-ink/85 sm:text-lg">
             {post.body.map((section, i) => (
               <section key={i} className="space-y-4">
                 {section.heading && (
@@ -61,24 +64,23 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
               </section>
             ))}
           </div>
+          <Separator className="mt-12" />
           <Link
             href="/blog"
-            className="mt-12 inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
+            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand hover:underline"
           >
             <ArrowLeft className="size-4" /> Back to all posts
           </Link>
         </Container>
       </article>
-      <section className="bg-cream py-16 sm:py-24">
-        <Container>
-          <h2 className="text-2xl font-extrabold text-ink">More stories</h2>
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            {more.map((p) => (
-              <PostCard key={p.slug} post={p} />
-            ))}
-          </div>
-        </Container>
-      </section>
+      <Section className="bg-cream">
+        <h2 className="text-2xl font-extrabold text-ink">More stories</h2>
+        <div className="mt-8 grid gap-5 sm:gap-6 md:grid-cols-2">
+          {more.map((p) => (
+            <PostCard key={p.slug} post={p} />
+          ))}
+        </div>
+      </Section>
     </>
   );
 }

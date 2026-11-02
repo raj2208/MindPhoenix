@@ -1,10 +1,16 @@
 "use client";
 
 import { useActionState } from "react";
-import { ChevronDown } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
-  Field,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  FormField,
   FormStatus,
   Honeypot,
   SubmitButton,
@@ -26,12 +32,12 @@ export function ApplicationForm({ positions }: { positions: string[] }) {
       key={state.n}
       action={action}
       noValidate
-      className="relative space-y-5"
+      className="relative flex flex-col gap-5"
     >
       <FormStatus state={state} />
       <Honeypot />
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="firstName" label="First name" required error={e?.firstName}>
+        <FormField id="firstName" label="First name" required error={e?.firstName}>
           <Input
             id="firstName"
             name="firstName"
@@ -41,8 +47,8 @@ export function ApplicationForm({ positions }: { positions: string[] }) {
             aria-describedby={e?.firstName ? "firstName-error" : undefined}
             className={inputClass}
           />
-        </Field>
-        <Field id="lastName" label="Last name" required error={e?.lastName}>
+        </FormField>
+        <FormField id="lastName" label="Last name" required error={e?.lastName}>
           <Input
             id="lastName"
             name="lastName"
@@ -52,10 +58,10 @@ export function ApplicationForm({ positions }: { positions: string[] }) {
             aria-describedby={e?.lastName ? "lastName-error" : undefined}
             className={inputClass}
           />
-        </Field>
+        </FormField>
       </div>
       <div className="grid gap-5 sm:grid-cols-2">
-        <Field id="email" label="Email" required error={e?.email}>
+        <FormField id="email" label="Email" required error={e?.email}>
           <Input
             id="email"
             name="email"
@@ -66,8 +72,8 @@ export function ApplicationForm({ positions }: { positions: string[] }) {
             aria-describedby={e?.email ? "email-error" : undefined}
             className={inputClass}
           />
-        </Field>
-        <Field id="phone" label="Phone" required error={e?.phone}>
+        </FormField>
+        <FormField id="phone" label="Phone" required error={e?.phone}>
           <Input
             id="phone"
             name="phone"
@@ -78,34 +84,28 @@ export function ApplicationForm({ positions }: { positions: string[] }) {
             aria-describedby={e?.phone ? "phone-error" : undefined}
             className={inputClass}
           />
-        </Field>
+        </FormField>
       </div>
-      <Field id="position" label="Applying for" required error={e?.position}>
-        <div className="relative">
-          <select
+      <FormField id="position" label="Applying for" required error={e?.position}>
+        <Select name="position" defaultValue={v?.position ?? null}>
+          <SelectTrigger
             id="position"
-            name="position"
-            defaultValue={v?.position ?? ""}
             aria-invalid={!!e?.position}
             aria-describedby={e?.position ? "position-error" : undefined}
-            className="h-12 w-full appearance-none rounded-xl border border-input bg-white px-4 pr-10 text-base outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 aria-invalid:border-destructive"
+            className="h-12 w-full rounded-xl bg-white px-4 text-base"
           >
-            <option value="" disabled>
-              Select a position
-            </option>
+            <SelectValue placeholder="Select a position" />
+          </SelectTrigger>
+          <SelectContent className="max-w-[calc(100vw-2rem)]">
             {positions.map((p) => (
-              <option key={p} value={p}>
+              <SelectItem key={p} value={p}>
                 {p}
-              </option>
+              </SelectItem>
             ))}
-          </select>
-          <ChevronDown
-            className="pointer-events-none absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-            aria-hidden
-          />
-        </div>
-      </Field>
-      <Field id="resume" label="Resume (PDF, DOC or DOCX, up to 5 MB)" required error={e?.resume}>
+          </SelectContent>
+        </Select>
+      </FormField>
+      <FormField id="resume" label="Resume" hint=" (PDF, DOC or DOCX, up to 5 MB)" required error={e?.resume}>
         <Input
           id="resume"
           name="resume"
@@ -115,7 +115,7 @@ export function ApplicationForm({ positions }: { positions: string[] }) {
           aria-describedby={e?.resume ? "resume-error" : undefined}
           className="h-12 rounded-xl bg-white px-3 py-2.5 text-base file:mr-3 file:rounded-full file:bg-accent file:px-4 file:py-1 file:text-sm file:font-semibold file:text-accent-foreground"
         />
-      </Field>
+      </FormField>
       <SubmitButton pending={pending}>Submit application</SubmitButton>
     </form>
   );

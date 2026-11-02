@@ -5,11 +5,11 @@ import {
   FounderMessage,
   Hero,
   News,
-  Partners,
   Projects,
   Services,
-  Stats,
+  StatsBar,
   Testimonials,
+  TrustedBy,
   WhyChooseUs,
 } from "@/components/home/sections";
 
@@ -17,13 +17,13 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <StatsBar />
+      <TrustedBy />
       <About />
       <Services />
       <WhyChooseUs />
-      <Partners />
-      <FounderMessage />
       <Projects />
-      <Stats />
+      <FounderMessage />
       <Approach />
       <Testimonials />
       <News />

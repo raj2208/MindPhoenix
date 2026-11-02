@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site/header";
 import { SiteFooter } from "@/components/site/footer";
+import { MobileActionBar } from "@/components/site/mobile-action-bar";
 import { company } from "@/data/site";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <MobileActionBar />
       </body>
     </html>
   );
