@@ -10,10 +10,17 @@ export const albums: Album[] = [
     slug: "arunachal-pradesh",
     title: "Arunachal Pradesh",
     description: "Preparing Arunachal Pradesh for its first IndiaSkills Competition.",
-    photos: [
-      { src: "/images/gallery-arunachal-1.jpg" },
-      { src: "/images/gallery-arunachal-2.jpg" },
-    ],
+    photos: Array.from({ length: 21 }, (_, i) => ({
+      src: `/images/gallery-arunachal-${i + 1}.jpg`,
+    })),
+  },
+  {
+    slug: "awards",
+    title: "Awards",
+    description: "Recognition for MPASL and its team.",
+    photos: Array.from({ length: 14 }, (_, i) => ({
+      src: `/images/gallery-awards-${i + 1}.jpg`,
+    })),
   },
   {
     slug: "indiaskills-2025-26",
@@ -44,6 +51,14 @@ export const albums: Album[] = [
     photos: [
       { src: "/images/gallery-bsvt-1.jpg" },
       { src: "/images/gallery-bsvt-2.jpg" },
+      { src: "/images/gallery-bsvt-x22.jpg" },
+      { src: "/images/gallery-bsvt-x23.jpg" },
+      { src: "/images/gallery-bsvt-x24.jpg" },
+      { src: "/images/gallery-bsvt-x26.jpg" },
+      { src: "/images/gallery-bsvt-x27.jpg" },
+      { src: "/images/gallery-bsvt-x28.jpg" },
+      { src: "/images/gallery-bsvt-x29.jpg" },
+      { src: "/images/gallery-bsvt-x31.jpg" },
     ],
   },
   {
