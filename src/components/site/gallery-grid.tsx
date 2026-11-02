@@ -27,8 +27,9 @@ export function GalleryGrid({ album }: { album: Album }) {
       if (e.key === "ArrowRight") step(1);
       if (e.key === "ArrowLeft") step(-1);
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    // Capture phase: the dialog's own key handling can swallow bubbling events.
+    window.addEventListener("keydown", onKey, true);
+    return () => window.removeEventListener("keydown", onKey, true);
   }, [index, step]);
 
   const current = index === null ? null : album.photos[index];
