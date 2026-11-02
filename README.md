@@ -16,9 +16,10 @@ cd MindPhoenix
 Requires a local Postgres. Create the database and table, then point the app at it:
 
 ```bash
-npm run db:setup
+pnpm install
+pnpm db:setup
 echo "DATABASE_URL=postgres://$USER@localhost:5432/mindphoenix" > .env.local
-npm run dev
+pnpm dev
 ```
 
 The home page is a minimal todo CRUD app used to verify the Postgres connection.
