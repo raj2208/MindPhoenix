@@ -1,17 +1,15 @@
 import { Suspense } from "react";
 import { connection } from "next/server";
-import { pool } from "@/lib/db";
+import { asc } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { todos } from "@/db/schema";
 import { createTodo, deleteTodo, toggleTodo } from "./actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-type Todo = { id: number; title: string; done: boolean };
-
 async function TodoList() {
   await connection();
-  const { rows } = await pool.query<Todo>(
-    "SELECT id, title, done FROM todos ORDER BY id",
-  );
+  const rows = await db.select().from(todos).orderBy(asc(todos.id));
 
   if (rows.length === 0) {
     return <p className="text-muted-foreground">No todos yet.</p>;
